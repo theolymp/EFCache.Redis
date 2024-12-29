@@ -1,4 +1,8 @@
-﻿using System;
+﻿#region usings
+
+using System;
+
+#endregion
 
 namespace EFCache.Redis
 {
@@ -18,17 +22,16 @@ namespace EFCache.Redis
         // ReSharper disable once MemberCanBePrivate.Global
         public CacheEntry()
         {
-
         }
-
-        public object Value { get; set; }
-
-        public string[] EntitySets { get; set; }
-
-        public TimeSpan SlidingExpiration { get; set; }
 
         public DateTimeOffset AbsoluteExpiration { get; set; }
 
+        public string[] EntitySets { get; set; }
+
         public DateTimeOffset LastAccess { get; set; }
+
+        public TimeSpan SlidingExpiration { get; set; }
+
+        public object Value { get; set; }
     }
 }

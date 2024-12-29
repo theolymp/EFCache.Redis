@@ -1,24 +1,17 @@
-﻿using StackExchange.Redis;
+﻿#region usings
+
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
+using StackExchange.Redis;
+
+#endregion
 
 namespace EFCache.Redis
 {
     public static class StackExchangeRedisExtensions
     {
-        public static T Get<T>(this IDatabase cache, string key)
-        {
-            var item = cache.StringGet(key);
-            return Deserialize<T>(item);
-        }
-
-        public static void Set<T>(this IDatabase cache, string key, T value) where T : class
-        {
-            cache.StringSet(key, Serialize<T>(value));
-        }
-
-        static byte[] Serialize<T>(T o) where T : class
+        private static byte[] Serialize<T>(T o) where T : class
         {
             if (o == null) return null;
             var binaryFormatter = new BinaryFormatter();
@@ -31,9 +24,9 @@ namespace EFCache.Redis
             }
         }
 
-        static T Deserialize<T>(byte[] stream)
+        private static T Deserialize<T>(byte[] stream)
         {
-            if (stream == null || !stream.Any()) return default(T);
+            if (stream == null || !stream.Any()) return default;
             var binaryFormatter = new BinaryFormatter();
             using (var memoryStream = new MemoryStream(stream))
             {
@@ -41,6 +34,17 @@ namespace EFCache.Redis
                 var result = (T)binaryFormatter.Deserialize(memoryStream);
                 return result;
             }
+        }
+
+        public static T Get<T>(this IDatabase cache, string key)
+        {
+            var item = cache.StringGet(key);
+            return Deserialize<T>(item);
+        }
+
+        public static void Set<T>(this IDatabase cache, string key, T value) where T : class
+        {
+            cache.StringSet(key, Serialize(value));
         }
     }
 }

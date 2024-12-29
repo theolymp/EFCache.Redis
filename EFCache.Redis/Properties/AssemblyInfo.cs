@@ -1,6 +1,9 @@
-﻿using System.Reflection;
-using System.Runtime.CompilerServices;
+﻿#region usings
+
+using System.Reflection;
 using System.Runtime.InteropServices;
+
+#endregion
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
@@ -33,4 +36,3 @@ using System.Runtime.InteropServices;
 //
 [assembly: AssemblyVersion("2019.1.28.1")]
 [assembly: AssemblyFileVersion("2019.1.28.1")]
-

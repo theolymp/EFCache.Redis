@@ -1,9 +1,14 @@
+#region usings
+
 using System;
 using System.Diagnostics.CodeAnalysis;
 
+#endregion
+
 namespace EFCache.Redis
 {
-    [Serializable, ExcludeFromCodeCoverage]
+    [Serializable]
+    [ExcludeFromCodeCoverage]
     public class RedisCacheException : Exception
     {
         public RedisCacheException()
